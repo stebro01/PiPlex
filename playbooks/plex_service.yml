@@ -1,0 +1,22 @@
+- hosts: plex_server
+  become: yes
+  vars:
+    plex_config_dir: "/opt/plexmedia/config"
+    plex_media_dir: "/opt/plexmedia/data"
+    plex_docker_file: "../files/plex_docker.service"
+
+  tasks:
+    # Deine vorherigen Tasks...
+    
+    - name: Kopiere systemd Service-Datei für Plex Docker Compose
+      ansible.builtin.copy:
+        src: "{{ plex_docker_file }}"
+        dest: /etc/systemd/system/plex_docker.service
+        mode: '0644'
+    
+    - name: Aktiviere und starte Plex Docker Compose Service
+      ansible.builtin.systemd:
+        name: plex_docker
+        enabled: yes
+        state: started
+        daemon_reload: yes

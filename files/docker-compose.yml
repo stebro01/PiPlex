@@ -1,0 +1,18 @@
+version: '3'
+services:
+  plex:
+    image: linuxserver/plex  # Beispiel für ein ARM-kompatibles Image
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - VERSION=docker
+    volumes:
+      - /opt/plexmedia/config:/config # Ersetze /pfad/zum/config mit dem Pfad zum Konfigurationsverzeichnis auf deinem Pi
+      - /opt/plexmedia/data/tvshows:/data/tvshows # Ersetze /pfad/zum/tv mit dem Pfad zum TV Shows Verzeichnis auf deinem Pi
+      - /opt/plexmedia/data/movies:/data/movies # Ersetze /pfad/zum/filme mit dem Pfad zum Filme Verzeichnis auf deinem Pi
+    restart: unless-stopped
+    expose: 
+      - "32400"

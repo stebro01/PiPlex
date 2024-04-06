@@ -1,0 +1,8 @@
+# Description: This is the  playbook to setup the service
+# Author: ste
+# Date: 2024-04-06
+# start with:
+# `ansible-playbook -i hosts install_plex_service.yml --ask-become-pass`
+
+
+- import_playbook: ./playbooks/plex_service.yml
