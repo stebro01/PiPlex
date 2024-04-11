@@ -5,6 +5,6 @@
 # `ansible-playbook -i hosts setup_plex.yml --ask-become-pass`
 
 
-# - import_playbook: ./playbooks/remove_snap.yml
-# - import_playbook: ./playbooks/install_preq.yml
+- import_playbook: ./playbooks/remove_snap.yml
+- import_playbook: ./playbooks/install_preq.yml
 - import_playbook: ./playbooks/run_plex.yml

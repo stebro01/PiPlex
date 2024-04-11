@@ -16,4 +16,17 @@ ansible-playbook -i hosts setup_plex.yml --ask-become-pass
 
 ## Teste dann mit
 
-http://192.168.178.117:32400/web
+### PLEX:
+
+http://192.168.178.86:32400/web
+
+### TINYMEDIAMANAGER
+
+```bash
+cd ~/MyProjects/PiPlex/tinymediamanager
+docker-compose up
+```
+
+open: 
+http://192.168.178.86:4000
+
