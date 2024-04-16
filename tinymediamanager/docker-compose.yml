@@ -14,6 +14,7 @@ services:
       - /opt/plexmedia/data/tinymediamanager:/data
       - /opt/plexmedia/data/movies/:/media/movies
       - /opt/plexmedia/data/tv_shows:/media/tv_shows
+      - /media/mediaserver:/opt/mediaserver # hier liegen die Mediendaten
     ports:
       - 5900:5900 # VNC port
       - 4000:4000 # Webinterface

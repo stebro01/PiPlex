@@ -13,6 +13,7 @@ services:
       - /opt/plexmedia/config:/config # Ersetze /pfad/zum/config mit dem Pfad zum Konfigurationsverzeichnis auf deinem Pi
       - /opt/plexmedia/data/tvshows:/data/tvshows # Ersetze /pfad/zum/tv mit dem Pfad zum TV Shows Verzeichnis auf deinem Pi
       - /opt/plexmedia/data/movies:/data/movies # Ersetze /pfad/zum/filme mit dem Pfad zum Filme Verzeichnis auf deinem Pi
+      - /media/mediaserver:/opt/mediaserver # hier liegen die Mediendaten
     restart: unless-stopped
     expose: 
       - "32400"
