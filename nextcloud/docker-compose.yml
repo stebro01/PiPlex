@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+  mariadb:
+    image: mariadb
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
+    ports:
+      - 9022:3306
+    volumes:
+      - /media/mediaserver/nextcloud/mariadb:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=mypw2024
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=root
+
+  myadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 9021:80
+    links:
+      - mariadb:db
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=mypw2024
+
+  nextcloud:
+    image: nextcloud
+    restart: always
+    ports:
+      - 9020:80
+    links:
+      - mariadb:mysql
+    volumes:
+      - /media/mediaserver/nextcloud/nextcloud:/var/www/html 
+      - /media/mediaserver/nextcloud/apps:/var/www/html/custom_apps 
+      - /media/mediaserver/nextcloud/config:/var/www/html/config 
+      - /media/mediaserver/nextcloud/data:/var/www/html/data 
+    environment:
+      - MYSQL_PASSWORD=mypw2024
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=root
+      - MYSQL_HOST=mariadb
