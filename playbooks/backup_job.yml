@@ -1,0 +1,27 @@
+# Description: This is the playbook, um das backupscript zu initialiseren
+# Author: ste
+# Date: 2024-04-021
+# start with:
+# `ansible-playbook -i hosts ./playbooks/backup_job.yml --ask-become-pass`
+
+
+---
+- name: Backup-Skript und Cron-Job einrichten
+  hosts: all  # oder spezifische Hosts/Gruppe, je nach deinem Setup
+  become: true  # Damit sudo-Befehle verwendet werden können
+  vars:
+    media_dir: "/media/mediaserver"
+  tasks:
+    - name: Skript in das FROM-Verzeichnis kopieren
+      copy:
+        src: ../files/backup_disk.sh
+        dest: "{{ media_dir }}/backup_disk.sh"  # Ändere auf das gewünschte Zielverzeichnis
+        mode: '0755'  # Setzt ausführbare Berechtigungen
+
+    - name: Cron-Job für tägliches Backup einrichten
+      cron:
+        name: "Tägliches Backup-Skript"
+        minute: 0
+        hour: 0  # Ausführung um Mitternacht
+        job: "/bin/bash {{ media_dir }}/backup_disk.sh"  # Ändere auf den Skriptpfad
+        user: "root"  # Setze auf den Benutzer, der den Cron-Job ausführt
