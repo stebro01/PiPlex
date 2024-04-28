@@ -2,7 +2,7 @@ version: '2'
 
 services:
   mariadb:
-    image: mariadb:10.6
+    image: mariadb:10.3
     restart: always
     command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
     ports:
@@ -27,6 +27,7 @@ services:
 
   nextcloud:
     image: nextcloud
+    container_name: piplex_nextcloud
     restart: always
     ports:
       - 9020:80
